@@ -33,14 +33,30 @@ resources = {
 }
 
 order = input("What would you like?: ").lower()
-print("One " + order + ", right? Just a sec...")
 
+if order == "report":
+    print(resources)
+elif order == "off":
+    isOn = False
+    exit()
+elif order == "latte" or "cappuccino" or "espresso":   
+    
+    match order:
+        case _:
+            print("this")
+
+    while resources.water >= 300:
+        print("One " + order + ", right? Just a sec...")
+
+else:
+    print("You must have messed something up, so try again")
+    
 #confirm with the resources dictionary 
-#that there are enough of each resource to make the user's order
+#that there is enough of each resource to make the user's order
 
 #if any resources are insufficient, output "unavailable"
 
-#if the user does not have enough money, output "you're broke"
+#if the user does not have enough money, output "you're broke, go home"
 
 #if both conditions are met: accept the money, deplete the supply, 
 #add the money to a profit variable, and print "here you go!"
@@ -60,3 +76,5 @@ that can be written on two lines"""
 """does this work"""
 """this works
 as a big fat comment"""
+
+
