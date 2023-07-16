@@ -1,13 +1,6 @@
 # menu with espresso, latte, and cappuccino as options
 # each option has associated ingredients and an associated cost
 MENU = {
-    "espresso": {
-        "ingredients": {
-            "water": 50,
-            "coffee": 18,
-        },
-        "cost": 1.5,
-    },
     "latte": {
         "ingredients": {
             "water": 200,
@@ -15,6 +8,13 @@ MENU = {
             "coffee": 24,
         },
         "cost": 2.5,
+    },
+    "espresso": {
+        "ingredients": {
+            "water": 50,
+            "coffee": 18,
+        },
+        "cost": 1.5,
     },
     "cappuccino": {
         "ingredients": {
@@ -25,15 +25,20 @@ MENU = {
         "cost": 3.0,
     }
 }
-# the each resource is quite limited in supply by default
+# [observation] the each resource is quite limited in supply by default
 resources = {
     "water": 300,
     "milk": 200,
     "coffee": 100,
 }
+#1
+order = ""
+def prompt(): 
+    order = input("what can I get for you?")
+    return order
+prompt() #I'd like to know how to use the "global" keyword on "order"
 
-order = input("What would you like?: ").lower()
-
+#2
 if order == "report":
     print(resources)
 elif order == "off":
@@ -42,10 +47,48 @@ elif order == "off":
 elif order == "latte" or "cappuccino" or "espresso":   
     
     match order:
-        case _:
-            print("this")
+        case "latte":
+            print(f"a {order}...")
+            #we need to check resources: w 200 m 150 c 24 AND 2.5 in user's account
+            
+            """IF water is insufficient: say we're out of water
+               IF milk is insufficient: say we're out of milk
+               IF coffee is insufficient: say we're out of coffee beans
+               else:"""
+            #ask for payment from user
+                #IF the user has insufficient funds: ask them to come back when they have enough
+                #ELSE:
+                    #deduct 2.5 from the user and deduct the above from each
 
-    while resources.water >= 300:
+        case "cappuccino":
+            print(f"a {order}...") 
+            #we need to check resources: w 250 m 100 c 24 AND 3.0 in user's account
+            """IF water is insufficient: say we're out of water
+               IF milk is insufficient: say we're out of milk
+               IF coffee is insufficient: say we're out of coffee beans
+               else:"""
+            #ask for payment from user
+                #IF the user has insufficient funds: ask them to come back when they have enough
+                #ELSE:
+                    #deduct 3.0 from the user and deduct the above from each
+
+        case "espresso":
+            print(f"an {order}...")
+            #we need to check resources: w 50 m 0 c 18 AND 1.5 in user's account
+            """IF water is insufficient: say we're out of water
+               IF milk is insufficient: say we're out of milk
+               IF coffee is insufficient: say we're out of coffee beans
+               else:"""
+            #ask for payment from user
+                #IF the user has insufficient funds: ask them to come back when they have enough
+                #ELSE:            
+                    #deduct 1.5 from the user and deduct the above from each
+
+        case _:
+            print("I got nothing for you babe.")
+            prompt()
+
+    while resources.water >= 50:
         print("One " + order + ", right? Just a sec...")
 
 else:
