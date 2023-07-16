@@ -49,25 +49,35 @@ elif order == "latte" or "cappuccino" or "espresso":
     match order:
         case "latte":
             print(f"a {order}...")
+            waterLevel = resources.get("water")
+            milkLevel = resources.get("milk")
+            coffeeLevel = resources.get("coffee")
+            
             #we need to check resources: w 200 m 150 c 24 AND 2.5 in user's account
             
             """IF water is insufficient: say we're out of water
                IF milk is insufficient: say we're out of milk
                IF coffee is insufficient: say we're out of coffee beans
                else:"""
+            price = str(MENU.get("latte").get("cost"))
             #ask for payment from user
+            print(f"That'll be {price}, please...")
                 #IF the user has insufficient funds: ask them to come back when they have enough
                 #ELSE:
                     #deduct 2.5 from the user and deduct the above from each
 
         case "cappuccino":
-            print(f"a {order}...") 
+            print(f"a {order}...")
+            waterLevel = resources.get("water")
+
             #we need to check resources: w 250 m 100 c 24 AND 3.0 in user's account
             """IF water is insufficient: say we're out of water
                IF milk is insufficient: say we're out of milk
                IF coffee is insufficient: say we're out of coffee beans
                else:"""
+            price = str(MENU.get("cappuccino").get("cost"))
             #ask for payment from user
+            print(f"That'll be {price}, please...")
                 #IF the user has insufficient funds: ask them to come back when they have enough
                 #ELSE:
                     #deduct 3.0 from the user and deduct the above from each
@@ -79,7 +89,9 @@ elif order == "latte" or "cappuccino" or "espresso":
                IF milk is insufficient: say we're out of milk
                IF coffee is insufficient: say we're out of coffee beans
                else:"""
+            price = str(MENU.get("espresso").get("cost"))
             #ask for payment from user
+            print(f"That'll be {price}, please...")
                 #IF the user has insufficient funds: ask them to come back when they have enough
                 #ELSE:            
                     #deduct 1.5 from the user and deduct the above from each
