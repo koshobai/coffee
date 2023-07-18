@@ -39,6 +39,13 @@ def prompt():
 prompt() #I'd like to know how to use the "global" keyword on "order"
 
 #2
+
+"""
+Use a while True: loop here that uses try: except ValueError: and else: break
+The reason why try: works so well with while True: loops is because
+if a user types in trash, we can tell them what we're looking for and 
+serve up an input() function to attempt to elicit the correct user response.
+"""
 if order == "report":
     print(resources)
 elif order == "off":
