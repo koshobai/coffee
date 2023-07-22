@@ -25,6 +25,94 @@ MENU = {
         "cost": 3.0,
     }
 }
+
+buckets = {
+    "water":2000,
+    "milk":2000,
+    "coffee":1000
+}
+
+resourceList = list(buckets.keys())
+
+w = resourceList["water"]
+m = resourceList["milk"]
+c = resourceList["coffee"]
+
+while True:
+    try:
+        order = input("What'll ya have?")
+        if order == w or m or c:
+            def checkResources(order):
+                match order:
+                    case "latte":
+                        if ... #we need something here for checking resources
+
+                    case "espresso":
+                        if ... #qualify this first by checking resources
+
+                    case "cappuccino":
+                        if ... #qualify this like the above ones
+
+                    case _:
+                        print("We don't have enough for that. I can make you something else.")
+            print(f"one {order}, right?")
+            checkResources(order)
+            #print the cost of the item requested
+            #define processCoins() for reading, accepting, deducting, and reimbursing coins (i.e. processing)
+            #execute the processCoins() function
+            def makeDrink(order):
+                match order:
+                    case "latte":
+                        if ... #we need something here for checking resources
+                            buckets["water"] -= MENU["latte"]["ingredients"]["water"]
+                            buckets["milk"] -= MENU["latte"]["ingredients"]["milk"]
+                            buckets["coffee"] -= MENU["latte"]["ingredients"]["coffee"]
+                    case "espresso":
+                        if ... #qualify this first by checking resources
+                            buckets["water"] -= MENU["espresso"]["ingredients"]["water"]
+                            buckets["coffee"] -= MENU["espresso"]["ingredients"]["coffee"]
+                    case "cappuccino":
+                        if ... #qualify this like the above ones
+                            buckets["water"] -= MENU["cappuccino"]["ingredients"]["water"]
+                            buckets["milk"] -= MENU["cappuccino"]["ingredients"]["milk"]
+                            buckets["coffee"] -= MENU["cappuccino"]["ingredients"]["coffee"]
+                    case _:
+                        print("Something went wrong. Let's try making something else.")
+            #execute the makeDrink() function
+
+
+            break
+        elif order == "report":
+            print(buckets)
+        elif order == "off":
+            quit()
+        
+
+    except ValueError:
+        print("We don't have those. I can make you a latte, an espresso, or a cappuccino.")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # [observation] the each resource is quite limited in supply by default
 resources = {
     "water": 300,
