@@ -1,3 +1,4 @@
+#
 # menu with espresso, latte, and cappuccino as options
 # each option has associated ingredients and an associated cost
 MENU = {
