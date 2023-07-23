@@ -1,4 +1,3 @@
-#
 # menu with espresso, latte, and cappuccino as options
 # each option has associated ingredients and an associated cost
 MENU = {
@@ -26,11 +25,31 @@ MENU = {
         "cost": 3.0,
     }
 }
-
+# stock initialized arbitrarily
 buckets = {
     "water": 2000,
     "milk": 2000,
     "coffee": 1000
+}
+
+# user's wallet contains coins in US currency of varying denominations
+denominations = {
+    "pennies": 0.01,
+    "nickels": 0.05,
+    "dimes": 0.1,
+    "quarters": 0.25
+}
+
+p = 80
+n = 15
+d = 15
+q = 15
+
+wallet = {
+    denominations["pennies"] * p,
+    denominations["nickels"] * n,
+    denominations["dimes"] * d,
+    denominations["quarters"] * q
 }
 
 resourceList = list(buckets.keys())
@@ -60,20 +79,23 @@ while True:
                     case _:
                         print(
                             "We don't have enough for that. I can make you something else.")
+            print(f"One {order}, right?")
+            checkResources(order)
         elif order == "report":
             print(buckets)
         elif order == "off":
             quit()
+        else:
+            print("Latte, espresso, or cappuccino please...")
     except ValueError:
         print("We don't have those. I can make you a latte, an espresso, or a cappuccino.")
 
-    print(f"one {order}, right?")
-    checkResources(order)
     # print the cost of the item requested
     # define processCoins() for reading, accepting, deducting, and reimbursing coins (i.e. processing)
-    # execute the processCoins() function
+    # execute the processCoins() function... OR just use if statements
     while True:
         try:
+
             def decrementSupply(order):
                 match order:
                     case "latte":
