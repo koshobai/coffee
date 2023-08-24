@@ -1,6 +1,26 @@
 # menu with espresso, latte, and cappuccino as options
 # each option has associated ingredients and an associated cost
+# note: anything with a full name is either a global variable
+# or a local variable that's explicitly defined inside of a function
+# (One can define a variable implicitly when passing it in as an argument too)
 def main():
+
+    # the initial number of each denomination is as follows:
+    p = 80
+    n = 15
+    d = 15
+    q = 15
+
+    coinpurse = (p*.01)+(n*.05)+(d*.1)+(q*.25)
+
+    # stock initialized arbitrarily
+
+    stock = {
+        "water": 2000,
+        "milk": 2000,
+        "coffee": 1000
+    }
+
     MENU = {
         "latte": {
             "ingredients": {
@@ -26,44 +46,26 @@ def main():
             "cost": 3.0,
         }
     }
-    # stock initialized arbitrarily
 
-    buckets = {
-        "water": 2000,
-        "milk": 2000,
-        "coffee": 1000
-    }
+# I can't call stock anything other than what I've defined above because I'm passing it through
+# this program know what cp refers to because I define cp as I'm passing it in as an argument
+# I then get to use any word during the function call I want because I didn't define a depended-on global variable
 
-    # retrieves the keys of each resource for use in the if statement order confirmation gate
-    resourceList = list(buckets.keys())
-
-    w = resourceList[0]
-    m = resourceList[1]
-    c = resourceList[2]
-
-    # the initial number of each denomination is as follows:
-    p = 80
-    n = 15
-    d = 15
-    q = 15
-
-    coinpurse = (p*.01)+(n*.05)+(d*.1)+(q*.25)
-
-    def report(buckets, cp):
-        print(f"{buckets['water']}, {buckets['milk']}, {buckets['coffee']}")
+    def report(stock, cp):
+        print(f"{stock['water']}, {stock['milk']}, {stock['coffee']}")
         print(f"{cp}")
 
-    def checkResources(order):
-        match order:
+    def checkResources(ordr):
+        match ordr:
             case "latte":
-                if buckets["water"] >= 200 and buckets["milk"] >= 150 and buckets["coffee"] >= 24:
-                    print("this")
+                if stock["water"] >= 200 and stock["milk"] >= 150 and stock["coffee"] >= 24:
+                    print("We've got enough here for a latte!")
             case "espresso":
-                if buckets["water"] >= 50 and buckets["coffee"] >= 18:
-                    print("this")
+                if stock["water"] >= 50 and stock["coffee"] >= 18:
+                    print("We've got enough here for an espresso!")
             case "cappuccino":
-                if buckets["water"] >= 250 and buckets["milk"] >= 100 and buckets["coffee"] >= 24:
-                    print("this")
+                if stock["water"] >= 250 and stock["milk"] >= 100 and stock["coffee"] >= 24:
+                    print("We've got enough here for a cappuccino!")
             case _:
                 print(
                     "We don't have enough for that. I can make you something else.")
@@ -81,76 +83,102 @@ def main():
             denominations["dimes"] * d) + (denominations["quarters"] * q)
         print(f"Seems like you have {totalCash} on you...")
 
-    def transact(order, q, d, n, p):
-        match order:
+    def transact(ordrr, q, d, n, p):
+        match ordrr:
             case "latte":
                 lattePrice = MENU.get("latte").get("cost")
                 print(f"That'll be {lattePrice}, please...")
                 while q > 0 and lattePrice > 0:
                     lattePrice -= .25
-                    q -= q
+                    q -= 1
+                    if q == 0 or lattePrice == 0:
+                        break
+
                 while d > 0 and lattePrice > 0:
                     lattePrice -= .1
-                    d -= d
+                    d -= 1
+                    if d == 0 or lattePrice == 0:
+                        break
                 while n > 0 and lattePrice > 0:
                     lattePrice -= .05
-                    n -= n
+                    n -= 1
+                    if n == 0 or lattePrice == 0:
+                        break
                 while p > 0 and lattePrice > 0:
                     lattePrice -= .01
-                    p -= p
+                    p -= 1
+                    if p == 0 or lattePrice == 0:
+                        break
+
             case "cappuccino":
                 ccinoPrice = MENU.get("cappuccino").get("cost")
                 print(f"That'll be {ccinoPrice}, please...")
                 while q > 0 and ccinoPrice > 0:
                     ccinoPrice -= .25
-                    q -= q
+                    q -= 1
+                    if q == 0:
+                        break
                 while d > 0 and ccinoPrice > 0:
                     ccinoPrice -= .1
-                    d -= d
+                    d -= 1
+                    if d == 0:
+                        break
                 while n > 0 and ccinoPrice > 0:
                     ccinoPrice -= .05
-                    n -= n
+                    n -= 1
+                    if n == 0:
+                        break
                 while p > 0 and ccinoPrice > 0:
                     ccinoPrice -= .01
-                    p -= p
+                    p -= 1
+                    if p == 0:
+                        break
             case "espresso":
                 ressoPrice = MENU.get("espresso").get("cost")
                 print(f"That'll be {ressoPrice}, please...")
                 while q > 0 and ressoPrice > 0:
                     ressoPrice -= .25
-                    q -= q
+                    q -= 1
+                    if q == 0:
+                        break
                 while d > 0 and ressoPrice > 0:
                     ressoPrice -= .1
-                    d -= d
+                    d -= 1
+                    if d == 0:
+                        break
                 while n > 0 and ressoPrice > 0:
                     ressoPrice -= .05
-                    n -= n
+                    n -= 1
+                    if n == 0:
+                        break
                 while p > 0 and ressoPrice > 0:
                     ressoPrice -= .01
-                    p -= p
+                    p -= 1
+                    if p == 0:
+                        break
             case _:
                 print(
                     "Sorry, could you repeat that?")
-
+        return q, d, n, p
         # write the logic for reimbursing coins
 
-    def decrementSupply(order):
-        match order:
+    def decrementSupply(oodr):
+        match oodr:
             case "latte":
-                buckets["water"] -= MENU["latte"]["ingredients"]["water"]
-                buckets["milk"] -= MENU["latte"]["ingredients"]["milk"]
-                buckets["coffee"] -= MENU["latte"]["ingredients"]["coffee"]
+                stock["water"] -= MENU["latte"]["ingredients"]["water"]
+                stock["milk"] -= MENU["latte"]["ingredients"]["milk"]
+                stock["coffee"] -= MENU["latte"]["ingredients"]["coffee"]
             case "espresso":
-                buckets["water"] -= MENU["espresso"]["ingredients"]["water"]
-                buckets["coffee"] -= MENU["espresso"]["ingredients"]["coffee"]
+                stock["water"] -= MENU["espresso"]["ingredients"]["water"]
+                stock["coffee"] -= MENU["espresso"]["ingredients"]["coffee"]
             case "cappuccino":
-                buckets["water"] -= MENU["cappuccino"]["ingredients"]["water"]
-                buckets["milk"] -= MENU["cappuccino"]["ingredients"]["milk"]
-                buckets["coffee"] -= MENU["cappuccino"]["ingredients"]["coffee"]
+                stock["water"] -= MENU["cappuccino"]["ingredients"]["water"]
+                stock["milk"] -= MENU["cappuccino"]["ingredients"]["milk"]
+                stock["coffee"] -= MENU["cappuccino"]["ingredients"]["coffee"]
             case _:
                 print(
                     "Something went wrong. Let's try making something else.")
-
+        return stock
     while True:
         try:
             order = input("What'll ya have? ")
@@ -158,11 +186,14 @@ def main():
                 print(f"One {order}, right?")
                 checkResources(order)
                 checkWallet(q, d, n, p)
-                transact(order, q, d, n, p)
+                q, d, n, p = transact(order, q, d, n, p)
+                # currently the coinpurse is showing 6.8, as if nothing changed
+                coinpurse = (p*.01)+(n*.05)+(d*.1)+(q*.25)
+                print(f"You have {coinpurse} left in your wallet")
                 decrementSupply(order)
                 break
             elif order == "report":
-                report(buckets, coinpurse)
+                report(stock, coinpurse)
             elif order == "off":
                 quit()
             else:
