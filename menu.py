@@ -11,7 +11,7 @@ def main():
     d = 15
     q = 15
 
-    coinpurse = (p*.01)+(n*.05)+(d*.1)+(q*.25)
+    # coinpurse = (p*.01)+(n*.05)+(d*.1)+(q*.25)
 
     # stock initialized arbitrarily
 
@@ -69,6 +69,7 @@ def main():
             case _:
                 print(
                     "We don't have enough for that. I can make you something else.")
+        return ordr
 
     def checkWallet(q, d, n, p):
         # user's wallet contains coins in US currency of varying denominations
@@ -81,19 +82,18 @@ def main():
     # the worth of each denomination is determined through multiplication
         totalCash = (denominations["pennies"] * p) + (denominations["nickels"] * n) + (
             denominations["dimes"] * d) + (denominations["quarters"] * q)
-        print(f"Seems like you have {totalCash} on you...")
+        return totalCash
 
     def transact(ordrr, q, d, n, p):
         match ordrr:
             case "latte":
                 lattePrice = MENU.get("latte").get("cost")
-                print(f"That'll be {lattePrice}, please...")
+                print(f"\nThat'll be {lattePrice}, please...\n")
                 while q > 0 and lattePrice > 0:
                     lattePrice -= .25
                     q -= 1
                     if q == 0 or lattePrice == 0:
                         break
-
                 while d > 0 and lattePrice > 0:
                     lattePrice -= .1
                     d -= 1
@@ -160,7 +160,6 @@ def main():
                 print(
                     "Sorry, could you repeat that?")
         return q, d, n, p
-        # write the logic for reimbursing coins
 
     def decrementSupply(oodr):
         match oodr:
@@ -181,19 +180,23 @@ def main():
         return stock
     while True:
         try:
-            order = input("What'll ya have? ")
+            order = input("What'll ya have?\n")
+            total = checkWallet(q, d, n, p)
+
             if order == "latte" or order == "cappuccino" or order == "espresso":
-                print(f"One {order}, right?")
+                print(f"\nOne {order}, right?\n")
                 checkResources(order)
-                checkWallet(q, d, n, p)
-                q, d, n, p = transact(order, q, d, n, p)
-                # currently the coinpurse is showing 6.8, as if nothing changed
-                coinpurse = (p*.01)+(n*.05)+(d*.1)+(q*.25)
-                print(f"You have {coinpurse} left in your wallet")
-                decrementSupply(order)
-                break
+                if total < MENU.get(order).get("cost"):
+                    print(
+                        f"...but you only have {total}, so we can't offer you that today.")
+                    break
+
+                elif total >= MENU.get(order).get("cost"):
+                    q, d, n, p = transact(order, q, d, n, p)
+                    decrementSupply(order)
+                    print("Thanks, come again!\n")
             elif order == "report":
-                report(stock, coinpurse)
+                report(stock, total)
             elif order == "off":
                 quit()
             else:
